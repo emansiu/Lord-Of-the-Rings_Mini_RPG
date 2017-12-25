@@ -2,3 +2,10 @@
 * {
     box-sizing: border-box;
 }
+
+.character {
+    background-color: rgb(95, 95, 95);
+    height: 150px;
+    width: 150px;
+    border: solid black 2px;
+}

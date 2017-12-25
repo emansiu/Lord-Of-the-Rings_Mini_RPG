@@ -29,8 +29,21 @@ var characters = {
 }
 
 
-$("#current-enemy").on("click", function(){
-    $("#current-enemy").text(characters.sauron.ap);
+//  create a character to use
+function createCharacter() {
+    const gandalf = $("<div>");
+    gandalf.addClass("character");
+    gandalf.attr("zone","choice-area");
+    $("#choice-area").append(gandalf);
+}
+
+createCharacter();
+
+$(".character").on("click", function(){
+    $("#current-enemy").text($(this).attr("zone"));
 });
 
-});
+
+
+
+});     //<-----do everything when the document is ready
