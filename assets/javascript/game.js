@@ -28,9 +28,10 @@ var characters = {
     
 }
 
+var zone = "";
 
 //  create a character to use
-function createCharacter() {
+function createCharacter(name) {
     const gandalf = $("<div>");
     gandalf.addClass("character");
     gandalf.attr("zone","choice-area");
@@ -39,9 +40,29 @@ function createCharacter() {
 
 createCharacter();
 
-$(".character").on("click", function(){
-    $("#current-enemy").text($(this).attr("zone"));
-});
+// $(".character").on("click", function(){
+//     $("#current-enemy").text($(this).attr("zone"));
+// });
+
+
+//vvvv--------- TRYING TO GET VALUE OF ATTRIBUTE TO WORK RIGHT NOW ------- vvvvvvvvvv
+
+
+    $(".character").on("click", function(){
+        if ($(".character").attr("zone") === "choice-area") {
+            $("#staging-zone").append($(this));
+            $(this).attr("zone","staging-zone");
+        }    
+    });
+
+    $(".character").on("click", function(){
+        if ($(".character").attr("zone") === "staging-zone") {
+            $("#current-enemy").append($(this));
+            $(this).attr("zone","current-enemy");
+        }
+    });
+
+
 
 
 

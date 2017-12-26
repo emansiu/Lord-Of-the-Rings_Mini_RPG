@@ -9,3 +9,47 @@
     width: 150px;
     border: solid black 2px;
 }
+
+body {
+    background: url(../images/background.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+/* COLORS BASED ON WHAT STAGING ZONE CHARACTER IS IN */
+.hero {
+    background-color: green;
+}
+.staging {
+    background-color: gray;
+}
+.enemy {
+    background-color: red;
+}
+
+/* <div id="choice-area"></div>
+<div id="staging-zone"></div>
+<div id="current-enemy">letter</div> */
+
+#choice-area {
+    border: 2px green solid;
+    height: 200px;
+    width: 100%;
+    /* float:left; */
+}
+#staging-zone {
+    border: 2px gray solid;
+    height: 200px;
+    width: 100%;
+    /* float:left; */
+}
+#current-enemy {
+    border: 2px red solid;
+    height: 200px;
+    width: 100%;
+    /* float:left; */
+}
+
+
