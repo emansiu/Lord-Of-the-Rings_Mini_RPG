@@ -28,6 +28,7 @@ var characters = {
     
 }
 
+//Global variable for total number of characters
 var charNumTotal = Object.keys(characters).length;
 
 //looping through character object to create all possible players
@@ -39,6 +40,7 @@ for(var i = 0; i < charNumTotal; i++) {
 
     playerOption.addClass("character hero");
     playerOption.attr("zone", "choice-area");
+    playerOption.attr("who", currentCharacter);
     playerOption.append("<p>"+ currentCharacter  +"</p>");
     playerOption.append("<img src='assets/images/img_icons/"+ currentCharacter  +".jpg'>");
     playerOption.append("<p>hp: "+ hp  +"</p>");
@@ -47,25 +49,31 @@ for(var i = 0; i < charNumTotal; i++) {
 }
 
 
-// -------FUNCTIONING CODE FOR CLICKING AND MOVING --------------
-// console.log(Object.keys(characters).length);
-// console.log(Object.keys(characters));
-// console.log($("#character-name").parent().attr('id'));
-// $("#character-name").text($("#character-name").parent().attr('id'));
+// ------- CODE FOR CLICKING AND MOVING --------------
 
-// //click function to move characters to different zones
-//     $(".character").on("click", function(){
-//         if ($(".character").attr("zone") === "choice-area") {
-//             if($("#character-name").parent().attr('id') !== "gandalf") {
-//                 $(".character").appendTo($("#staging-zone")).show('slow');
-//                 $(".character").attr("zone","staging-zone");
-//             }
-//         }    
-//         else if ($(".character").attr("zone") === "staging-zone") {
-//             $("#current-enemy").append($(this));
-//             $(this).attr("zone","current-enemy");
-//         }
-//     });
+    $(".character").on("click", function(){
+        var moveCharacters = [];
+        if ($(".character").attr("zone") === "choice-area") {
+            // whoever you choose moves into player zone
+            $(this).attr("zone", "player");
+            // everyone else moves into staging zone
+            $('.character').not(this).each(function(){
+                $(this).attr("zone", "staging-zone");
+                $(this).appendTo($("#staging-zone"));
+                $(this).removeClass("hero").addClass("staging");
+
+                console.log($(this).attr("zone"));
+            });
+        }
+        else if ($(".character").attr("zone") === "staging-zone") {
+                // whoever you choose moves into enemy zone
+                $(this).attr("zone", "enemy");
+                $(this).appendTo($("#current-enemy"));
+                $(this).removeClass("staging").addClass("enemy");
+
+                console.log($(this).attr("zone"));
+        }
+    });
 
 
 

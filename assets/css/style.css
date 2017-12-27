@@ -45,22 +45,25 @@ img {
 <div id="current-enemy">letter</div> */
 
 #choice-area {
-    border: 5px green solid;
-    height: 200px;
+    border: 10px green solid;
     width: 100%;
     /* float:left; */
 }
 #staging-zone {
-    border: 5px gray solid;
-    height: 200px;
+    border: 10px gray solid;
     width: 100%;
     /* float:left; */
 }
 #current-enemy {
-    border: 5px red solid;
-    height: 200px;
+    border: 10px red solid;
     width: 100%;
     /* float:left; */
 }
+#current-enemy::after, #staging-zone::after, #choice-area::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
 
 
