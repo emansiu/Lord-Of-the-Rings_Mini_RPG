@@ -28,7 +28,23 @@ var characters = {
     
 }
 
+var charNumTotal = Object.keys(characters).length;
 
+//looping through character object to create all possible players
+for(var i = 0; i < charNumTotal; i++) {
+
+    const playerOption = $("<div>");
+    let currentCharacter = Object.keys(characters)[i];
+    let hp = characters[currentCharacter].hp;
+
+    playerOption.addClass("character hero");
+    playerOption.attr("zone", "choice-area");
+    playerOption.append("<p>"+ currentCharacter  +"</p>");
+    playerOption.append("<img src='assets/images/img_icons/"+ currentCharacter  +".jpg'>");
+    playerOption.append("<p>hp: "+ hp  +"</p>");
+    
+    $("#choice-area").append(playerOption);
+}
 
 
 // -------FUNCTIONING CODE FOR CLICKING AND MOVING --------------
