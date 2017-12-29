@@ -31,24 +31,26 @@ var characters = {
 //Global variable for total number of characters
 var charNumTotal = Object.keys(characters).length;
 
-//looping through character object to create all possible players
-for(var i = 0; i < charNumTotal; i++) {
+//FUNCTION TO CREATE CHARACTERS BASED ON CHARACTERS OBJECT
+function initialize(){
+    for(var i = 0; i < charNumTotal; i++) {
 
-    const playerOption = $("<div>");
-    let currentCharacter = Object.keys(characters)[i];
-    let hp = characters[currentCharacter].hp;
+        const playerOption = $("<div>");
+        let currentCharacter = Object.keys(characters)[i];
+        let hp = characters[currentCharacter].hp;
 
-    playerOption.addClass("character hero");
-    playerOption.attr("zone", "choice-area");
-    playerOption.attr("who", currentCharacter);
-    playerOption.attr("hp", hp);
-    playerOption.append("<h3>"+ currentCharacter  +"</h3>");
-    playerOption.append("<img src='assets/images/img_icons/"+ currentCharacter  +".jpg'>");
-    playerOption.append("<p id='hp'>hp: "+ playerOption.attr("hp") +"</p>");
+        playerOption.addClass("character hero");
+        playerOption.attr("zone", "choice-area");
+        playerOption.attr("who", currentCharacter);
+        playerOption.attr("hp", hp);
+        playerOption.append("<h3>"+ currentCharacter  +"</h3>");
+        playerOption.append("<img src='assets/images/img_icons/"+ currentCharacter  +".jpg'>");
+        playerOption.append("<p id='hp'>hp: "+ playerOption.attr("hp") +"</p>");
 
-    
-    $("#choice-area").append(playerOption);
-}
+        
+        $("#choice-area").append(playerOption);
+    }
+
 
 
 
@@ -96,24 +98,33 @@ $(".character").on("click", function(){
     //--- creating function for new attack button
     $(".button").on("click", function() {
     
-    playerHP = playerHP - enemyCA;
-    enemyHP = enemyHP - playerAP;
-    console.log(currentPlayer + " " + playerHP + " vs " + currentEnemy + " " + enemyHP);
-    $("div[zone=player] > p:last-child").text("hp: "+ playerHP);
-    $("div[zone=enemy] > p:last-child").text("hp: " + enemyHP);
+        playerHP = playerHP - enemyCA;
+        enemyHP = enemyHP - playerAP;
+        console.log(currentPlayer + " " + playerHP + " vs " + currentEnemy + " " + enemyHP);
+        $("div[zone=player] > p:last-child").text("hp: "+ playerHP);
+        $("div[zone=enemy] > p:last-child").text("hp: " + enemyHP);
 
-    //------ level up AP power--------
-    playerAP = playerAP + compounder;
+        //------ level up AP power--------
+        playerAP = playerAP + compounder;
     
-});
-
-
+    });
 
     
+
+    
 });
+}
+initialize();
+// ^^^^-------ENDING FUNCTIONALITY FOR CLICKING ON CHARACTER CARDS -----^^^^^
 
 
-
+//--- this reset the game to start over
+$(".reset").on("click", function() {
+    $("#choice-area").empty();
+    $("#staging-zone").empty();
+    $("#current-enemy").empty();
+    initialize();
+});
 
 
 

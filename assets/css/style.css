@@ -28,12 +28,14 @@ h3 {
     padding: 10px;
     color:white;
     letter-spacing: 0.5em;
+    text-shadow: 2px 2px 4px #000000;
 }
 
 img {
     display: block;
     margin:auto;
     border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 /* COLORS BASED ON WHAT STAGING ZONE CHARACTER IS IN */
 .hero {
@@ -76,6 +78,18 @@ img {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    border-radius: 30px;
+}
+.reset {
+    background-color: red;
+    border: solid black 2px;
+    color: rgb(1, 95, 32);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 30px;
 }
 
 
