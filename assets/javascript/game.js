@@ -42,7 +42,7 @@ for(var i = 0; i < charNumTotal; i++) {
     playerOption.attr("zone", "choice-area");
     playerOption.attr("who", currentCharacter);
     playerOption.attr("hp", hp);
-    playerOption.append("<p>"+ currentCharacter  +"</p>");
+    playerOption.append("<h3>"+ currentCharacter  +"</h3>");
     playerOption.append("<img src='assets/images/img_icons/"+ currentCharacter  +".jpg'>");
     playerOption.append("<p id='hp'>hp: "+ playerOption.attr("hp") +"</p>");
 
@@ -77,7 +77,7 @@ $(".character").on("click", function(){
         //--- CREATING BUTTON ONCE AN ENEMY IS CHOSEN---
         var attackBtn = $("<div>");
         attackBtn.addClass("button");
-        attackBtn.text("I'm a button!");
+        attackBtn.html("<h3>Fight!</h3>");
         $("#current-enemy").append(attackBtn);
 
         // ---setting up variables needed to do the math---
@@ -85,32 +85,31 @@ $(".character").on("click", function(){
         var currentPlayerDisplay = $("div[zone=player]").attr("hp");
         var currentEnemy = $("div[zone=enemy]").attr("who");
         var currentEnemyDisplay = $("div[zone=enemy]").attr("hp");
-        var playerHP = characters[currentPlayer].hp ;
-        var playerAP = characters[currentPlayer].ap ;
+        var playerHP = characters[currentPlayer].hp;
+        var playerAP = characters[currentPlayer].ap;
         var enemyHP = characters[currentEnemy].hp;
         var enemyCA = characters[currentEnemy].ca;
+        var compounder = characters[currentPlayer].ap;
         
     }
 
-    
-
     //--- creating function for new attack button
     $(".button").on("click", function() {
-        
-        
-        playerHP = playerHP - enemyCA;
-        enemyHP = enemyHP - playerAP;
-        console.log(currentPlayer);
-        console.log("player hp: "+playerHP);
-        console.log("player ap: "+playerAP);
-        console.log(currentEnemy);
-        console.log("enemy hp: "+enemyHP);
-        console.log("enemy ca: "+enemyCA);
-        console.log(currentPlayerDisplay);
-        currentPlayerDisplay = "hp: " + playerHP;
-        
-        
-    });
+    
+    playerHP = playerHP - enemyCA;
+    enemyHP = enemyHP - playerAP;
+    console.log(currentPlayer + " " + playerHP + " vs " + currentEnemy + " " + enemyHP);
+    $("div[zone=player] > p:last-child").text("hp: "+ playerHP);
+    $("div[zone=enemy] > p:last-child").text("hp: " + enemyHP);
+
+    //------ level up AP power--------
+    playerAP = playerAP + compounder;
+    
+});
+
+
+
+    
 });
 
 

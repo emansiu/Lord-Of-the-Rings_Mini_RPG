@@ -1,16 +1,15 @@
-
+/*  MAIN OVERALL STYLES FOR THE PAGE */
 * {
     box-sizing: border-box;
 }
-
+/* character class for main images you click on */
 .character {
     background-color: rgb(95, 95, 95);
-    height: 200px;
     width: 200px;
     border: solid black 2px;
     float:left;
+    border-radius: 20px;
 }
-
 body {
     background: url(../images/background.jpg) no-repeat center center fixed; 
     -webkit-background-size: cover;
@@ -18,16 +17,23 @@ body {
     -o-background-size: cover;
     background-size: cover;
 }
-
 p {
     text-align: center;
     margin:0px;
-    padding:0px;
+    padding:10px;
+}
+h3 {
+    text-align: center;
+    margin:0px;
+    padding: 10px;
+    color:white;
+    letter-spacing: 0.5em;
 }
 
 img {
     display: block;
     margin:auto;
+    border-radius: 20px;
 }
 /* COLORS BASED ON WHAT STAGING ZONE CHARACTER IS IN */
 .hero {
@@ -40,24 +46,21 @@ img {
     background-color: red;
 }
 
-/* <div id="choice-area"></div>
-<div id="staging-zone"></div>
-<div id="current-enemy">letter</div> */
 
 #choice-area {
     border: 10px green solid;
     width: 100%;
-    /* float:left; */
+    border-radius: 30px;
 }
 #staging-zone {
     border: 10px gray solid;
     width: 100%;
-    /* float:left; */
+    border-radius: 30px;
 }
 #current-enemy {
     border: 10px red solid;
     width: 100%;
-    /* float:left; */
+    border-radius: 30px;
 }
 #current-enemy::after, #staging-zone::after, #choice-area::after {
     content: "";
@@ -67,7 +70,7 @@ img {
 .button {
     background-color: red;
     border: solid black 2px;
-    color: black;
+    color: rgb(1, 95, 32);
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
