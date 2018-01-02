@@ -76,17 +76,17 @@ $(".character").on("click", function(){
         $(this).removeClass("staging").addClass("enemy");
 
 
-        //--- CREATING BUTTON ONCE AN ENEMY IS CHOSEN---
-        var attackBtn = $("<div>");
-        attackBtn.addClass("button");
-        attackBtn.html("<h3>Fight!</h3>");
-        $("#current-enemy").append(attackBtn);
+        //--- CREATING BUTTON ONCE AN ENEMY IS CHOSEN "AND" BUTTON DOESN'T EXIST ALREADY---
+        if ($(".attack").length === 0 ) {
+            var attackBtn = $("<div>");
+            attackBtn.addClass("attack");
+            attackBtn.html("<h3>Fight!</h3>");
+            $("#info-area").append(attackBtn);
+        }
 
         // ---setting up variables needed to do the math---
         var currentPlayer = $("div[zone=player]").attr("who");
-        var currentPlayerDisplay = $("div[zone=player]").attr("hp");
         var currentEnemy = $("div[zone=enemy]").attr("who");
-        var currentEnemyDisplay = $("div[zone=enemy]").attr("hp");
         var playerHP = characters[currentPlayer].hp;
         var playerAP = characters[currentPlayer].ap;
         var enemyHP = characters[currentEnemy].hp;
@@ -96,14 +96,20 @@ $(".character").on("click", function(){
     }
 
     //--- creating function for new attack button
-    $(".button").on("click", function() {
+    $(".attack").on("click", function() {
     
         playerHP = playerHP - enemyCA;
         enemyHP = enemyHP - playerAP;
-        console.log(currentPlayer + " " + playerHP + " vs " + currentEnemy + " " + enemyHP);
+        console.log(currentPlayer + " HP: " + playerHP + " vs " + currentEnemy + " HP: " + enemyHP);
         $("div[zone=player] > p:last-child").text("hp: "+ playerHP);
         $("div[zone=enemy] > p:last-child").text("hp: " + enemyHP);
 
+        // remove enemy if their HP goes to zero or below
+        if (enemyHP <= 0) {
+            $("#current-enemy").empty();
+            alert("you are a killer");
+        }
+        console.log(currentPlayer + " AP:  " + playerAP + " vs " + currentEnemy + " CA:  " + enemyCA);
         //------ level up AP power--------
         playerAP = playerAP + compounder;
     
@@ -116,6 +122,7 @@ $(".character").on("click", function(){
 }
 initialize();
 // ^^^^-------ENDING FUNCTIONALITY FOR CLICKING ON CHARACTER CARDS -----^^^^^
+
 
 
 //--- this reset the game to start over

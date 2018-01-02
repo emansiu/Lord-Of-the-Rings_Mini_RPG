@@ -51,28 +51,41 @@ img {
     background: linear-gradient(to bottom right, rgb(87, 0, 0),rgb(128, 0, 0));
 }
 
-
+/* MAIN DIV ID'S FOR THE PAGE */
+#info-area {
+    width:33%;
+    border: 10px rgb(0, 70, 128) solid;
+    border-radius: 30px;
+    float:left;
+    height: 90vh;
+    position:relative;
+}
 #choice-area {
     border: 10px green solid;
-    width: 100%;
+    width: 67%;
     border-radius: 30px;
+    float:left;
 }
 #staging-zone {
     border: 10px gray solid;
-    width: 100%;
+    width: 67%;
     border-radius: 30px;
+    float:left;
 }
 #current-enemy {
     border: 10px red solid;
-    width: 100%;
+    width: 67%;
     border-radius: 30px;
+    float:left;
 }
-#current-enemy::after, #staging-zone::after, #choice-area::after {
+#current-enemy::after, #staging-zone::after, #choice-area::after, #info-area::after {
     content: "";
     clear: both;
     display: table;
 }
-.button {
+
+/* buttons */
+.attack {
     background: linear-gradient(to bottom right, rgb(143, 16, 16),rgb(173, 5, 5));
     border: solid red 2px;
     padding: 15px 32px;
@@ -80,7 +93,7 @@ img {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    border-radius: 30px;
+    border-radius: 20px;
 }
 .reset {
     background: linear-gradient(to bottom right, rgb(17, 101, 153),rgb(54, 152, 212));
@@ -90,7 +103,7 @@ img {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    border-radius: 30px;
+    border-radius: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
