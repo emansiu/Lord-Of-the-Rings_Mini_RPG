@@ -31,6 +31,16 @@ var characters = {
 //Global variable for total number of characters
 var charNumTotal = Object.keys(characters).length;
 
+// defining undeclared variables for later
+var playerHP;
+var playerAP;
+var enemyHP;
+var enemyCA;
+var compounder;
+var currentEnemy;
+var currentPlayer
+var attacking = false;
+
 //FUNCTION TO CREATE CHARACTERS BASED ON CHARACTERS OBJECT
 function initialize(){
     for(var i = 0; i < charNumTotal; i++) {
@@ -57,16 +67,24 @@ function initialize(){
 // ------- CODE FOR CLICKING AND MOVING --------------
 
 $(".character").on("click", function(){
+
     
     if ($(this).attr("zone") === "choice-area") {
-        // whoever you choose moves into player zone
+        // whoever you choose moves into player zone and assigning their attributes from the character
             $(this).attr("zone", "player");
+            currentPlayer = $("div[zone=player]").attr("who");
+            playerHP = characters[currentPlayer].hp;
+            playerAP = characters[currentPlayer].ap;
+            compounder = characters[currentPlayer].ap;
         // everyone else moves into staging zone
             $('.character').not(this).each(function(){
                 $(this).attr("zone", "staging-zone");
                 $(this).appendTo($("#staging-zone"));
                 $(this).removeClass("hero").addClass("staging");
             });
+
+            // display instructions for what to do next
+            $("div[id=info-area] > h1").text("Now choose who you are going to fight. But choose wisely some characters counter harder than others. Luckily you get stronger with every attack!");
             
     }
     else if ($(this).attr("zone") === "staging-zone" && $("#current-enemy").is(':empty')) {
@@ -74,6 +92,12 @@ $(".character").on("click", function(){
         $(this).attr("zone", "enemy");
         $(this).appendTo($("#current-enemy"));
         $(this).removeClass("staging").addClass("enemy");
+        attacking = true;
+
+        // enemy variables can stay in this scope since they change after every death
+        currentEnemy = $("div[zone=enemy]").attr("who");
+        enemyHP = characters[currentEnemy].hp;
+        enemyCA = characters[currentEnemy].ca;
 
 
         //--- CREATING BUTTON ONCE AN ENEMY IS CHOSEN "AND" BUTTON DOESN'T EXIST ALREADY---
@@ -81,56 +105,66 @@ $(".character").on("click", function(){
             var attackBtn = $("<div>");
             attackBtn.addClass("attack");
             attackBtn.html("<h3>Fight!</h3>");
+            $("div[id=info-area] > h1").text("Click the 'Fight!' button to inflict your true feelings");            
             $("#info-area").append(attackBtn);
         }
-
-        // ---setting up variables needed to do the math---
-        var currentPlayer = $("div[zone=player]").attr("who");
-        var currentEnemy = $("div[zone=enemy]").attr("who");
-        var playerHP = characters[currentPlayer].hp;
-        var playerAP = characters[currentPlayer].ap;
-        var enemyHP = characters[currentEnemy].hp;
-        var enemyCA = characters[currentEnemy].ca;
-        var compounder = characters[currentPlayer].ap;
         
     }
 
     //--- creating function for new attack button
     $(".attack").on("click", function() {
-    
-        playerHP = playerHP - enemyCA;
-        enemyHP = enemyHP - playerAP;
-        console.log(currentPlayer + " HP: " + playerHP + " vs " + currentEnemy + " HP: " + enemyHP);
-        $("div[zone=player] > p:last-child").text("hp: "+ playerHP);
-        $("div[zone=enemy] > p:last-child").text("hp: " + enemyHP);
+        if (attacking === true) {
+            playerHP = playerHP - enemyCA;
+            enemyHP = enemyHP - playerAP;
+            
+            $("div[zone=player] > p:last-child").text("hp: "+ playerHP);
+            $("div[zone=enemy] > p:last-child").text("hp: " + enemyHP);
 
-        // remove enemy if their HP goes to zero or below
-        if (enemyHP <= 0) {
-            $("#current-enemy").empty();
-            alert("you are a killer");
+                // remove enemy if their HP goes to zero or below
+                if (enemyHP <= 0) {
+                    $("#current-enemy").empty();
+                    $(".attack").remove();
+                    attacking = false;
+                    $("div[id=info-area] > h1").text("who's next?");                    
+                }
+                if (playerHP <= 0) {
+                    $(".attack").remove();
+                    $("div[id=info-area] > h1").text("You got dead. Hit reset to start over"); 
+                    attacking = false;
+                }
+                if ($("#current-enemy").is(':empty') && $("#staging-zone").is(':empty')) {
+                    $("div[id=info-area] > h1").text("You feel good about that? Good. Do it again - hit reset"); 
+                }
+
+            //------ level up AP power--------
+            playerAP = playerAP + compounder;
         }
-        console.log(currentPlayer + " AP:  " + playerAP + " vs " + currentEnemy + " CA:  " + enemyCA);
-        //------ level up AP power--------
-        playerAP = playerAP + compounder;
     
     });
+
 
     
 
     
 });
+$("div[id=info-area] > h1").text("Choose your hero to fight with.");
 }
 initialize();
 // ^^^^-------ENDING FUNCTIONALITY FOR CLICKING ON CHARACTER CARDS -----^^^^^
 
-
-
-//--- this reset the game to start over
-$(".reset").on("click", function() {
+// RESET FUNCTIONS AND CLICKS
+function resetGame(){
     $("#choice-area").empty();
     $("#staging-zone").empty();
     $("#current-enemy").empty();
+    $(".attack").remove();
     initialize();
+     
+}
+
+//--- this button/class resets the game to start over
+$(".reset").on("click", function() {
+    resetGame();
 });
 
 
