@@ -1,5 +1,5 @@
 # week-4-game
-Using This section to pseudocode.
+## Using This section to pseudocode.
 
 1. place 4 character objects into beginning hero choice zone.
 2. select 1 character
